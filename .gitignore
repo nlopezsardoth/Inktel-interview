@@ -1,0 +1,116 @@
+# Byte-compiled / optimized / DLL files
+Bot/__pycache__/
+Bot/*.py[cod]
+Bot/*$py.class
+
+# C extensions
+Bot/*.so
+
+# IDE Stuff
+Bot/.vscode/
+Bot/.history
+Bot/*.DS_Store
+
+# Distribution / packaging
+Bot/.Python
+Bot/build/
+Bot/develop-eggs/
+Bot/dist/
+Bot/downloads/
+Bot/eggs/
+Bot/.eggs/
+Bot/lib/
+Bot/lib64/
+Bot/parts/
+Bot/sdist/
+Bot/var/
+Bot/wheels/
+Bot/*.egg-info/
+Bot/.installed.cfg
+Bot/*.egg
+Bot/MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+Bot/*.manifest
+Bot/*.spec
+
+# Installer logs
+Bot/pip-log.txt
+Bot/pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+Bot/htmlcov/
+Bot/.tox/
+Bot/.coverage
+Bot/.coverage.*
+Bot/.cache
+Bot/nosetests.xml
+Bot/coverage.xml
+Bot/*.cover
+Bot/.hypothesis/
+Bot/.pytest_cache/
+
+# Translations
+Bot/*.mo
+Bot/*.pot
+
+# Django stuff:
+Bot/*.log
+Bot/local_settings.py
+Bot/db.sqlite3
+
+# Flask stuff:
+Bot/instance/
+Bot/.webassets-cache
+
+# Scrapy stuff:
+Bot/.scrapy
+
+# Sphinx documentation
+Bot/docs/_build/
+
+# PyBuilder
+Bot/target/
+
+# Jupyter Notebook
+Bot/.ipynb_checkpoints
+
+# pyenv
+Bot/.python-version
+
+# celery beat schedule file
+Bot/celerybeat-schedule
+
+# SageMath parsed files
+Bot/*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+Bot/.spyderproject
+Bot/.spyproject
+
+# Rope project settings
+Bot/.ropeproject
+
+# mkdocs documentation
+Bot/site
+
+# mypy
+Bot/.mypy_cache/
+
+# Rasa stuff
+Bot/models/
+Bot/*.db*
+Bot/*.dot
+Bot/terms/
+Bot/results/
