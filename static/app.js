@@ -1,4 +1,4 @@
-function uploadFile(form) {
+function upload(form) {
   const formData = new FormData(form);
 
   var oOutput = document.getElementById("static_file_response");

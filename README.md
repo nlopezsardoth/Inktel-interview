@@ -1,6 +1,6 @@
-# ChatboxDemo
+# Inktel test
 
-## Virtual enviroment
+## Virtual enviroment ##
 Para crear el ambiente virtual
     `python3 -m venv ./venv` 
 
@@ -9,5 +9,9 @@ Para activar el ambiente virtual
 
 Para instalar los paquetes necesarios
     `pip install -r requirements.txt`
+
+## Application ##
+Para correr la app
+    `python app.py` 
 
 
