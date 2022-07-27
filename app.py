@@ -26,9 +26,9 @@ def get_message():
     return render_template("index.html")
 
 
-@app.route('/upload_static_file', methods=['POST'])
-def upload_static_file():
-    print("Got request in static files")
+@app.route('/upload', methods=['POST'])
+def upload():
+    print("Got upload request")
 
     file = request.files['static_file']
 
@@ -43,6 +43,59 @@ def upload_static_file():
     resp = {"success": True, "response": "file saved!",
             "url": json["upload_url"]}
     return jsonify(resp), 200
+
+
+@app.route('/transcribe', methods=['POST'])
+def transcribe():
+    print("Got transcribing request")
+
+    audioID = request.data.decode("utf-8")
+
+    def _startTranscription(aURL):
+        response = requests.post(
+            transcriptURL,
+            headers=headers,
+            json={"audio_url": aURL}
+        )
+
+        json = response.json()
+
+        return json["id"]
+
+    transcriptionID = _startTranscription(audioID)
+
+    maxAttempts = 10
+    timedout = False
+
+    while True:
+        response = requests.get(
+            f"{transcriptURL}/{transcriptionID}",
+            headers=headers,
+        )
+
+        json = response.json()
+
+        if json["status"] == "completed":
+            break
+
+        maxAttempts -= 1
+        timedout = maxAttempts <= 0
+
+        if timedout:
+            break
+
+        # Waiting 3 seconds before next try
+        time.sleep(3)
+
+    if timedout:
+        resp = {"success": False,
+                "response": "Error occurred when trying to transcribe the file"}
+        return jsonify(resp), 400
+
+    else:
+        resp = {"success": True, "response": "file transcribed!",
+                "id": transcriptionID}
+        return jsonify(resp), 200
 
 
 if __name__ == '__main__':

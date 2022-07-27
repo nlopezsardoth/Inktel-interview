@@ -7,8 +7,11 @@
         <body> 
             <form enctype = "multipart/form-data" onsubmit="return false" >
                 <input id="file" type="file" name="static_file" />
-                <button id="upload-button" onclick="upload(this.form)"> Upload </button>
-            </form> <div id="static_file_response"> </div>
+                <button id="upload-btn" onclick="upload(this.form)"> Upload </button>
+                <button id="transcribe-btn" disabled = "disabled"> Transcribe </button>
+            </form>
             <script type="text/javascript" src="/static/app.js"></script>
+            <div id="static_file_response"> </div>
+            <input type="text" id="input-el"> 
         </body>
 </html>
