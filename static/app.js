@@ -1,3 +1,5 @@
+let audioURL = "";
+
 function upload(form) {
   const formData = new FormData(form);
 
@@ -9,7 +11,9 @@ function upload(form) {
   oReq.onload = function (oEvent) {
     if (oReq.status == 200) {
       oOutput.innerHTML = "Uploaded!";
-      console.log(oReq.response);
+      response = JSON.parse(oReq.response);
+      audioURL = response.url;
+      console.log(audioURL);
     } else {
       oOutput.innerHTML =
         "Error occurred when trying to upload your file.<br />";

@@ -1,6 +1,19 @@
 from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
 
+import requests
+import time
+
+authKey = "e0bbaa859b5c43d3887e6cdbabbc2f74"
+
+headers = {
+    "authorization": authKey,
+    "content-type": "application/json"
+}
+
+uploadURL = "https://api.assemblyai.com/v2/upload"
+transcriptURL = "https://api.assemblyai.com/v2/transcript"
+
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -17,11 +30,18 @@ def get_message():
 def upload_static_file():
     print("Got request in static files")
 
-    print(request.files)
-    f = request.files['static_file']
-    f.save(f.filename)
+    file = request.files['static_file']
 
-    resp = {"success": True, "response": "file saved!"}
+    response = requests.post(
+        uploadURL,
+        headers=headers,
+        data=file
+    )
+
+    json = response.json()
+
+    resp = {"success": True, "response": "file saved!",
+            "url": json["upload_url"]}
     return jsonify(resp), 200
 
 
