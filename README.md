@@ -14,4 +14,7 @@ Para instalar los paquetes necesarios
 Para correr la app
     `python app.py` 
 
+Para visualizar la aplicación poner url en un browser, por defecto
+    `http://127.0.0.1:1521` 
+
 

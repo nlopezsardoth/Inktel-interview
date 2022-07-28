@@ -87,14 +87,24 @@ searchBtn.addEventListener("click", function () {
   oReq.send(JSON.stringify({ search: search, id: trancriptionID }));
 });
 
+againBtn.addEventListener("click", function () {
+  matches = [];
+
+  inputEl.style.display = "block";
+  searchBtn.style.display = "block";
+
+  searchResponse.style.display = "none";
+  againBtn.style.display = "none";
+});
+
 function displayMatches(matches) {
   let listItems = "<tr><th>Word</th><th>Count</th><th>Time stamp</th></tr>";
   for (let i = 0; i < matches.length; i++) {
     listItems += `
         <tr>
-            <th>${matches[i].text}</th>
-            <th>${matches[i].count}</th>
-            <th>${matches[i].timestamps}</th>
+            <td class="col-word">${matches[i].text}</th>
+            <td class="col-count">${matches[i].count}</th>
+            <td class="col-timestamp">${matches[i].timestamps}</th>
         </tr>
     `;
   }

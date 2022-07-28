@@ -3,22 +3,41 @@
         <head>
             <meta charset="UTF-8">
             <title>File Uploader</title>
+            <link rel="stylesheet" type= "text/css" href="static\styles\index.css">
         </head>
-        <body> 
-            <form enctype = "multipart/form-data" onsubmit="return false" >
-                <input id="file" type="file" name="static_file" />
-                <button id="upload-btn" onclick="upload(this.form)"> Upload </button>
-                <button id="transcribe-btn" disabled = "disabled"> Transcribe </button>
-            </form>
-
-            <div id="response"> </div>
-
-            <input type="text" id="input-el" style="display: none"> 
-            <button id="search-btn" style="display: none"> Search </button>
-
-            <table id="search-response" style = "display: none"> </table>
-            <button id="again-btn" style="display: none"> Another Search </button>
-
-            <script type="text/javascript" src="/static/app.js"></script>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <table width = "100%">
+                        <tr width = "100%">
+                            <td width = "40%"><img src="static\logo.png"/></td>
+                            <td width = "60%"><h1>MP3 Transcriber</h1></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="sections">
+                    <form enctype = "multipart/form-data" onsubmit="return false" >
+                        <input id="file" type="file" name="static_file" />
+                        <div class="button-container">
+                            <button id="upload-btn" onclick="upload(this.form)"> Upload </button>
+                            <button id="transcribe-btn" disabled = "disabled"> Transcribe </button>
+                        </div>
+                    </form>
+                </div>
+    
+                <div class="sections" id="response"> </div>
+    
+                <div class="sections">
+                    <input  type="text" id="input-el" style="display: none"> 
+                    <button id="search-btn" style="display: none"> Search </button>
+                </div>
+    
+                <div class="sections">
+                    <table id="search-response" style = "display: none"> </table>
+                    <button id="again-btn" style="display: none"> Another Search </button>
+                </div>
+    
+                <script type="text/javascript" src="/static/app.js"></script>
+            </div>
         </body>
 </html>
