@@ -9,6 +9,8 @@ body {
   background-color: #46658c;
   color: white !important;
   padding: 5px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .container {
@@ -16,9 +18,11 @@ body {
   max-width: 70vw;
   margin-left: auto;
   margin-right: auto;
-  min-height: 70vh;
+  min-height: 80vh;
   overflow-y: auto;
   overflow-x: auto;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 .sections {
   min-width: 50vw;
@@ -55,9 +59,10 @@ button {
 }
 
 #input-el {
-  vertical-align: top;
-  width: 45vw !important;
-  height: 20vh !important;
+  padding: 10px;
+  border: 1px solid #038c65;
+  margin-bottom: 1vh;
+  margin-top: 5vh;
 }
 
 #again-btn {
@@ -66,6 +71,8 @@ button {
 
 #search-response {
   padding: 2vw;
+  margin-bottom: 1vh;
+  margin-top: 2vh;
 }
 
 .col-word {

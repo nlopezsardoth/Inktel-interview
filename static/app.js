@@ -45,6 +45,8 @@ transcribeBtn.addEventListener("click", function () {
       transcribeBtn.setAttribute("disabled", "disabled");
       inputEl.style.display = "block";
       searchBtn.style.display = "block";
+      searchResponse.style.display = "none";
+      againBtn.style.display = "none";
     } else {
       oOutput.innerHTML =
         "Error occurred when trying to transcribe your file.<br />";
