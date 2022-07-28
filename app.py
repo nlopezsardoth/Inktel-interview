@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, jsonify, render_template, request, json
 from flask_cors import CORS
 from flask_pymongo import PyMongo, ObjectId
@@ -8,22 +10,24 @@ import time
 import re
 from datetime import datetime
 
+from dotenv import load_dotenv
+load_dotenv()
+
 logging.basicConfig(filename="logFile.log", level=logging.DEBUG,
                     format="%(asctime)s:%(name)s:%(message)s")
 
-authKey = "e0bbaa859b5c43d3887e6cdbabbc2f74"
+authKey = os.environ.get('AUTH_KEY')
+uploadURL = os.environ.get('UPLOAD_URL')
+transcriptURL = os.environ.get('TRANSCRIPT_URL')
 
 headers = {
     "authorization": authKey,
     "content-type": "application/json"
 }
 
-uploadURL = "https://api.assemblyai.com/v2/upload"
-transcriptURL = "https://api.assemblyai.com/v2/transcript"
-
-USERNAME = "kaptts"
-PASSWORD = "fTcDaMvMUAgufaNC"
-DB = "Inktel_project"
+USERNAME = os.environ.get('DB_USERNAME')
+PASSWORD = os.environ.get('DB_PASSWORD')
+DB = os.environ.get('DB')
 
 app = Flask(__name__)
 
@@ -34,13 +38,6 @@ CORS(app, resources={r"*": {"origins": "*"}})
 
 
 MP3Db = mongo.db.mp3
-
-# document = {
-#     "item": "canvas",
-#     "qft": 100
-# }
-
-# MP3Db.insert_one(document)
 
 
 @app.route('/', methods=['GET', 'POST'])
