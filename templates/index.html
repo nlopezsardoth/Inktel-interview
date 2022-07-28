@@ -10,8 +10,15 @@
                 <button id="upload-btn" onclick="upload(this.form)"> Upload </button>
                 <button id="transcribe-btn" disabled = "disabled"> Transcribe </button>
             </form>
+
+            <div id="response"> </div>
+
+            <input type="text" id="input-el" style="display: none"> 
+            <button id="search-btn" style="display: none"> Search </button>
+
+            <table id="search-response" style = "display: none"> </table>
+            <button id="again-btn" style="display: none"> Another Search </button>
+
             <script type="text/javascript" src="/static/app.js"></script>
-            <div id="static_file_response"> </div>
-            <input type="text" id="input-el"> 
         </body>
 </html>

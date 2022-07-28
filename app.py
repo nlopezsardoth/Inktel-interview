@@ -1,8 +1,9 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, json
 from flask_cors import CORS
 
 import requests
 import time
+import re
 
 authKey = "e0bbaa859b5c43d3887e6cdbabbc2f74"
 
@@ -95,6 +96,43 @@ def transcribe():
     else:
         resp = {"success": True, "response": "file transcribed!",
                 "id": transcriptionID}
+        return jsonify(resp), 200
+
+
+@app.route('/search', methods=['POST'])
+def search():
+    print("Got search request")
+
+    data = json.loads(request.data.decode())
+    transcriptionId = data["id"]
+    text = data["search"]
+
+    text = re.sub(r'[^\w\s]', '', text)
+    text = text.split()
+    words = (",".join(sorted(set(text), key=text.index)))
+
+    response = requests.get(
+        f"{transcriptURL}/{transcriptionId}/word-search?words={words}",
+        headers=headers,
+    )
+
+    jResponse = response.json()
+    matches = jResponse["matches"]
+
+    if not matches:
+        resp = {"success": True,
+                "response": "No match found"}
+        return jsonify(resp), 204
+    else:
+        for match in matches:
+            timestamps = []
+            match.pop("indexes")
+            for time in match["timestamps"]:
+                timestamps.append(time[0]/1000)
+            match["timestamps"] = ", ".join(str(stamp) for stamp in timestamps)
+
+        resp = {"success": True, "response": "file saved!",
+                "match": matches}
         return jsonify(resp), 200
 
 
