@@ -1,9 +1,13 @@
 from flask import Flask, jsonify, render_template, request, json
 from flask_cors import CORS
 
+import logging
 import requests
 import time
 import re
+
+logging.basicConfig(filename="logFile.log", level=logging.INFO,
+                    format="%(asctime)s:%(name)s:%(message)s")
 
 authKey = "e0bbaa859b5c43d3887e6cdbabbc2f74"
 
@@ -23,13 +27,12 @@ CORS(app, resources={r"*": {"origins": "*"}})
 
 @app.route('/', methods=['GET', 'POST'])
 def get_message():
-    print("Got request in main function")
+    logging.info(f"Main")
     return render_template("index.html")
 
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    print("Got upload request")
 
     file = request.files['static_file']
 
@@ -41,14 +44,17 @@ def upload():
 
     json = response.json()
 
+    url = json["upload_url"]
+
+    logging.info(f"Upload: {url}")
+
     resp = {"success": True, "response": "file saved!",
-            "url": json["upload_url"]}
+            "url": url}
     return jsonify(resp), 200
 
 
 @app.route('/transcribe', methods=['POST'])
 def transcribe():
-    print("Got transcribing request")
 
     audioID = request.data.decode("utf-8")
 
@@ -89,11 +95,14 @@ def transcribe():
         time.sleep(3)
 
     if timedout:
+        logging.info(f"Transcribe: Error")
         resp = {"success": False,
                 "response": "Error occurred when trying to transcribe the file"}
         return jsonify(resp), 400
 
     else:
+        logging.info(f"Transcribe: {transcriptionID}")
+
         resp = {"success": True, "response": "file transcribed!",
                 "id": transcriptionID}
         return jsonify(resp), 200
@@ -101,7 +110,6 @@ def transcribe():
 
 @app.route('/search', methods=['POST'])
 def search():
-    print("Got search request")
 
     data = json.loads(request.data.decode())
     transcriptionId = data["id"]
@@ -120,6 +128,7 @@ def search():
     matches = jResponse["matches"]
 
     if not matches:
+        logging.info(f"Search: No match")
         resp = {"success": True,
                 "response": "No match found"}
         return jsonify(resp), 204
@@ -130,6 +139,8 @@ def search():
             for time in match["timestamps"]:
                 timestamps.append(time[0]/1000)
             match["timestamps"] = ", ".join(str(stamp) for stamp in timestamps)
+
+        logging.info(f"Search: {matches}")
 
         resp = {"success": True, "response": "file saved!",
                 "match": matches}
