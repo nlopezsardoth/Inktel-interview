@@ -88,7 +88,7 @@ searchBtn.addEventListener("click", function () {
 });
 
 function displayMatches(matches) {
-  let listItems = "<tr><th>Word</th><th>Count</th><th>$Time stamp</th></tr>";
+  let listItems = "<tr><th>Word</th><th>Count</th><th>Time stamp</th></tr>";
   for (let i = 0; i < matches.length; i++) {
     listItems += `
         <tr>
