@@ -53,6 +53,16 @@ button {
   width: 120px;
 }
 
+.button-disabled {
+  background-color: lightgray !important;
+  border: 1px solid lightgray !important;
+}
+
+.button-enabled {
+  background-color: #038c65 !important;
+  border: 1px solid #038c65 !important;
+}
+
 .button-container {
   width: 250px;
   display: inline-block;

@@ -21,6 +21,7 @@ function upload(form) {
       response = JSON.parse(oReq.response);
       audioURL = response.url;
       transcribeBtn.removeAttribute("disabled");
+      transcribeBtn.setAttribute("class", "button-enabled");
     } else {
       oOutput.innerHTML =
         "Error occurred when trying to upload your file.<br />";
