@@ -1,12 +1,14 @@
 from flask import Flask, jsonify, render_template, request, json
 from flask_cors import CORS
+from flask_pymongo import PyMongo, ObjectId
 
 import logging
 import requests
 import time
 import re
+from datetime import datetime
 
-logging.basicConfig(filename="logFile.log", level=logging.INFO,
+logging.basicConfig(filename="logFile.log", level=logging.DEBUG,
                     format="%(asctime)s:%(name)s:%(message)s")
 
 authKey = "e0bbaa859b5c43d3887e6cdbabbc2f74"
@@ -19,10 +21,26 @@ headers = {
 uploadURL = "https://api.assemblyai.com/v2/upload"
 transcriptURL = "https://api.assemblyai.com/v2/transcript"
 
+USERNAME = "kaptts"
+PASSWORD = "fTcDaMvMUAgufaNC"
+DB = "Inktel_project"
 
 app = Flask(__name__)
-app.config["DEBUG"] = True
+
+app.config['MONGO_URI'] = f"mongodb+srv://{USERNAME}:{PASSWORD}@cluster0.9lpqyj1.mongodb.net/{DB}"
+mongo = PyMongo(app)
+
 CORS(app, resources={r"*": {"origins": "*"}})
+
+
+MP3Db = mongo.db.mp3
+
+# document = {
+#     "item": "canvas",
+#     "qft": 100
+# }
+
+# MP3Db.insert_one(document)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -95,7 +113,7 @@ def transcribe():
         time.sleep(3)
 
     if timedout:
-        logging.info(f"Transcribe: Error")
+        logging.error(f"Transcribe")
         resp = {"success": False,
                 "response": "Error occurred when trying to transcribe the file"}
         return jsonify(resp), 400
@@ -141,11 +159,22 @@ def search():
             match["timestamps"] = ", ".join(str(stamp) for stamp in timestamps)
 
         logging.info(f"Search: {matches}")
+        insertToDb(transcriptionId, words, matches)
 
         resp = {"success": True, "response": "file saved!",
                 "match": matches}
         return jsonify(resp), 200
 
 
+def insertToDb(transcriptionID, searchText, answer):
+
+    MP3Db.insert_one({
+        "date": datetime.now(),
+        "transcription_id": transcriptionID,
+        "search": searchText,
+        "matches": json.dumps(answer)
+    })
+
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(1521), debug=True)
+    app.run(host='localhost', port=int(1521))
